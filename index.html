@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For you ❤️</title>
+<title>Open this ❤️</title>
 
 <style>
 body {
@@ -143,28 +143,32 @@ button {
 
 
 
-<audio id="bgMusic" src="https://www.bensound.com/bensound-music/bensound-love.mp3" loop></audio>
+<audio id="bgMusic" src="assets/music.mp3" loop preload="auto"></audio>
 
 <script>
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const music = document.getElementById("bgMusic");
+music.load();
 const noWrapper = document.getElementById("noWrapper");
 
 /* --- Yes clicked --- */
-yesBtn.addEventListener("click", () => {
-    music.volume = 0.2;
-    music.play();
-    let volInt = setInterval(() => {
-        if (music.volume < 1) music.volume += 0.02;
-        else clearInterval(volInt);
-    }, 200);
+yesBtn.addEventListener("click", async () => {
 
-    document.body.innerHTML = `
+    try {
+        await music.play();
+    } catch (error) {
+        console.log("Audio error:", error);
+    }
+
+    music.volume = 0.6;
+
+    document.querySelector(".container").innerHTML = `
+
         <div style="text-align:center; color:white;">
-            <h1 style="font-size:3rem; text-shadow:0 0 20px pink;">She Said YES!!! 💖</h1>
-            <p style="font-size:1.5rem;">Forever ♾️</p>
-            <p style="font-size:1.2rem;">I Love You So Much ❤️</p>
+            <h1 style="font-size:3rem; text-shadow:0 0 20px green;">You Said YES!!! 💖</h1>
+            <p style="font-size:1.5rem;">Let's make it happen and stay forever ♾️</p>
+            <p style="font-size:1.2rem;">Seni seviyorum ❤️</p>
         </div>
     `;
     launchConfetti();
@@ -217,5 +221,4 @@ function launchConfetti() {
 }
 </script>
 </body>
-
 </html>
